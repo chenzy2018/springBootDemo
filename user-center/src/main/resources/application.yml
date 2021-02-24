@@ -1,0 +1,22 @@
+server:
+  port: 8851
+
+spring:
+  application:
+    name: user-center
+  cloud:
+    nacos:
+      username: nacos
+      password: nacos
+      discovery:
+        enabled: true
+        register-enabled: true
+        server-addr: 127.0.0.1:8848
+        cluster-name: BJ
+
+#ribbon设置饥饿加载，clients用于指定具体服务，多个用逗号隔开
+ribbon:
+  eager-load:
+    enabled: true
+    clients: user-center
+
