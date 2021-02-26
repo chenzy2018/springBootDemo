@@ -30,7 +30,7 @@ spring:
   datasource:
     password: root2018
     username: root
-    url: jdbc:mysql://localhost:3306/czyTest?useUnicode=true&characterEncoding=utf-8&useSSL=true&serverTimezone=UTC
+    url: jdbc:mysql://localhost:3306/content-center?useUnicode=true&characterEncoding=utf-8&useSSL=true&serverTimezone=UTC
     driver-class-name: com.mysql.cj.jdbc.Driver
 
 #配置某服务的负载均衡的规则
@@ -38,3 +38,12 @@ spring:
 #  ribbon:
 #    NFLoadBalancerRuleClassName: com.itczy.org.configuration.NacosWeightRule
 
+# RestTemplate的senetinel开关，用于开启或关闭@SentinelRestTemplate，默认开启
+resttemplate:
+  sentinel:
+    enabled: false
+
+# feign的senetinel开关，用于开启或关闭@SentinelRestTemplate，默认开启
+feign:
+  sentinel:
+    enabled: false

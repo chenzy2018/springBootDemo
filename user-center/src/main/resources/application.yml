@@ -16,7 +16,7 @@ spring:
   datasource:
     password: root2018
     username: root
-    url: jdbc:mysql://localhost:3306/czyTest?useUnicode=true&characterEncoding=utf-8&useSSL=true&serverTimezone=UTC
+    url: jdbc:mysql://localhost:3306/user-center?useUnicode=true&characterEncoding=utf-8&useSSL=true&serverTimezone=UTC
     driver-class-name: com.mysql.cj.jdbc.Driver
 
 #ribbon设置饥饿加载，clients用于指定具体服务，多个用逗号隔开
