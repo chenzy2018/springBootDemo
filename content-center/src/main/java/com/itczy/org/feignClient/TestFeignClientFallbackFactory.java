@@ -20,6 +20,11 @@ public class TestFeignClientFallbackFactory implements FallbackFactory<TestUserC
                 log.warn("异常：", throwable);
                 return "进入TestFeignClientFallbackFactory";
             }
+
+            @Override
+            public Boolean addBonus(int userId, int bonus) {
+                return null;
+            }
         };
     }
 }

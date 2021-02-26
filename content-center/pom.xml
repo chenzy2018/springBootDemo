@@ -49,6 +49,12 @@
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-openfeign</artifactId>
         </dependency>
+        <!-- 整合rocketmq-->
+        <dependency>
+            <groupId>org.apache.rocketmq</groupId>
+            <artifactId>rocketmq-spring-boot-starter</artifactId>
+            <version>2.0.3</version>
+        </dependency>
         <!-- 整合actuator -->
         <dependency>
             <groupId>org.springframework.boot</groupId>

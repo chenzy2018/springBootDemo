@@ -47,3 +47,10 @@ resttemplate:
 feign:
   sentinel:
     enabled: false
+
+#rocketmq服务
+rocketmq:
+  name-server: 127.0.01:9876
+  producer:
+    #小坑，必须指定group
+    group: test-group

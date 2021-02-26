@@ -12,6 +12,7 @@ import org.springframework.web.client.RestTemplate;
 @SpringBootApplication
 @EnableDiscoveryClient
 @EnableFeignClients
+@tk.mybatis.spring.annotation.MapperScan(basePackages = "com.itczy.org.dao")
 public class ContentCenterApplication {
 
     public static void main(String[] args) {

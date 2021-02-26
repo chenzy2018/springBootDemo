@@ -1,6 +1,5 @@
 package com.itczy.org.feignClient;
 
-import com.itczy.org.domain.dto.TestDTO;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;

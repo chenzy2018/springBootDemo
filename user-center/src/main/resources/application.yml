@@ -13,11 +13,31 @@ spring:
         register-enabled: true
         server-addr: 127.0.0.1:8848
         cluster-name: BJ
+    sentinel:
+      #filter:
+      #关闭对 springMVC 端点的保护， 防止干扰
+      #enabled: false
+      transport:
+        # 指定sentinel控制台地址
+        dashboard: localhost:8080
+        # 指定和控制台通信的IP，若不配置，会自动选择一个IP注册
+        #client-ip: 127.0.0.1
+        # 指定和控制台通信的端口，默认值8719
+        # 若不配置，会自动扫猫从8719开始扫猫，依次+1，直到找到未被占用的端口
+        #port: 8719
+        # 心跳发送周期，默认值null
+        # 但在SimpleHttpHeartbeatSender会用默认值10秒
+        #heartbeat-interval-ms: 10000
   datasource:
     password: root2018
     username: root
     url: jdbc:mysql://localhost:3306/user-center?useUnicode=true&characterEncoding=utf-8&useSSL=true&serverTimezone=UTC
     driver-class-name: com.mysql.cj.jdbc.Driver
+
+#配置某服务的负载均衡的规则
+#user-center:
+#  ribbon:
+#    NFLoadBalancerRuleClassName: com.itczy.org.ribbonConfiguration.NacosWeightRule
 
 #ribbon设置饥饿加载，clients用于指定具体服务，多个用逗号隔开
 ribbon:
@@ -25,3 +45,16 @@ ribbon:
     enabled: true
     clients: user-center
 
+# RestTemplate的senetinel开关，用于开启或关闭@SentinelRestTemplate，默认开启
+resttemplate:
+  sentinel:
+    enabled: false
+
+# feign的senetinel开关，用于开启或关闭@SentinelRestTemplate，默认开启
+feign:
+  sentinel:
+    enabled: false
+
+#rocketmq服务
+rocketmq:
+  name-server: 127.0.01:9876

@@ -54,6 +54,12 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-actuator</artifactId>
         </dependency>
+        <!-- 整合rocketmq-->
+        <dependency>
+            <groupId>org.apache.rocketmq</groupId>
+            <artifactId>rocketmq-spring-boot-starter</artifactId>
+            <version>2.0.3</version>
+        </dependency>
         <!-- 非spring官方提供的包 一般格式为：xxx-spring-boot-starter -->
         <!-- 整合mybatis -->
         <dependency>
