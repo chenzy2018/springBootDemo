@@ -1,8 +1,7 @@
-package com.itczy.org.configuration;
+package com.itczy.org.ribbonConfiguration;
 
 import configurations.RibbonsConfiguration;
 import org.springframework.cloud.netflix.ribbon.RibbonClient;
-import org.springframework.cloud.netflix.ribbon.RibbonClients;
 import org.springframework.stereotype.Component;
 
 @Component

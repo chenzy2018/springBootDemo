@@ -36,7 +36,7 @@ spring:
 #配置某服务的负载均衡的规则
 #user-center:
 #  ribbon:
-#    NFLoadBalancerRuleClassName: com.itczy.org.configuration.NacosWeightRule
+#    NFLoadBalancerRuleClassName: com.itczy.org.ribbonConfiguration.NacosWeightRule
 
 # RestTemplate的senetinel开关，用于开启或关闭@SentinelRestTemplate，默认开启
 resttemplate:

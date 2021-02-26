@@ -1,4 +1,4 @@
-package com.itczy.org.configuration;
+package com.itczy.org.ribbonConfiguration;
 
 import com.alibaba.cloud.nacos.NacosDiscoveryProperties;
 import com.alibaba.cloud.nacos.ribbon.NacosServer;

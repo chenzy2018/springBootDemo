@@ -1,7 +1,6 @@
 package configurations;
 
-import com.itczy.org.configuration.NacosSameClusterRule;
-import com.itczy.org.configuration.NacosWeightRule;
+import com.itczy.org.ribbonConfiguration.NacosSameClusterRule;
 import com.netflix.loadbalancer.IRule;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

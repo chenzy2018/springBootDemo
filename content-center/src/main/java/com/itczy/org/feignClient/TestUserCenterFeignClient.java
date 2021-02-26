@@ -4,6 +4,7 @@ import com.itczy.org.domain.dto.TestDTO;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
 
 /**
  * fallback用于处理远程调用异常情况(限流之类的)，出现异常就会执行类中方法，不能拿到异常
@@ -24,4 +25,7 @@ public interface TestUserCenterFeignClient {
      */
     @GetMapping("/getUser/{userId}")
     String query(@PathVariable int userId);
+
+    @GetMapping("/addBonus")
+    Boolean addBonus(@RequestParam(value = "userId") int userId, @RequestParam(value = "bonus") int bonus);
 }

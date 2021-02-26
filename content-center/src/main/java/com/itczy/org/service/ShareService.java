@@ -1,9 +1,10 @@
 package com.itczy.org.service;
 
 import com.itczy.org.domain.dto.ShareAuditDTO;
+import com.itczy.org.domain.entity.Share;
 
 public interface ShareService {
 
-    public String auditById(Integer id, ShareAuditDTO shareAuditDTO);
+    Share auditById(Integer id, ShareAuditDTO shareAuditDTO);
 
 }
