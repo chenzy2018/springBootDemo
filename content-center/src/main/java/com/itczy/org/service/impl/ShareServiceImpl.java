@@ -10,11 +10,14 @@ import lombok.RequiredArgsConstructor;
 import org.apache.rocketmq.spring.core.RocketMQTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Objects;
 
 @Service
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
+//事务支持，只要发生Exception异常，代码就回滚
+@Transactional(rollbackFor = Exception.class)
 public class ShareServiceImpl implements ShareService {
 
     private final ShareMapper shareMapper;
@@ -41,8 +44,9 @@ public class ShareServiceImpl implements ShareService {
 
         //3.如果是PASS，那么为发布人添加积分
         //如果addBonus比较费时，就需要异步执行，减少耗时
-        testUserCenterFeignClient.addBonus(id, 500);
+        //testUserCenterFeignClient.addBonus(id, 500);
 
+        //使用rocketmq发送消息
         rocketMQTemplate.convertAndSend(
                 "add-bonus",
                 UserAddBonusMagDTO.builder()

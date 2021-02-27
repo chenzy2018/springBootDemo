@@ -1,0 +1,53 @@
+rocketmq：
+
+    术语：
+        topic：一类消息的集合，rocketmq的基本订阅单位
+        消息模型：
+            Producer：生产者(生产消息)
+            Broker：消息代理(存储消息，转发消息)
+            Consumer：消费者(消费消息)
+        部署结构：
+            Name Server：名字服务，生产者/消费者通过名字服务查找个主题相应的Broker IP列表
+            Broker Server：代理服务器，消息中转角色，负责存储消息、转发消息
+        消费模式：
+            Pull Consumer：拉取式消费，用用钓鱼钩nConsumer的拉取信息方法从Broker Server拉取消息
+            Push Consumer：推动式消费，Broker收到消息后主动推动给消费端，该模式实时性较高
+        Group：组
+            Produceer Group：生产者组，同一类Producer的集合，同组的Producer发送同一类消息且发送逻辑一致，如果发送的是事务消息
+                且原始生产者再发送之后崩溃，则Broker服务器会联系同组的其他生产者实例以提交或回溯消息
+            Consumer Group：消费者组，同一类Consumer的结合，同组的Consumer消费同一类消息且消费逻辑一致、消费者组是的在消息消费
+                方面，实现负载均衡和容错的目标变得容易。要注意的是，消费者组的消费者实例必须订阅完全相同的Topic。
+        消息传播模式：
+            Clustering：集群，相同Consumer Group的每个Consumer实例平均分摊消息
+            BroadCasting：广播：相同Consumer Group的每个Consumer实例都接收全量消息
+        消息类型：
+            普通消息、顺序消息、定时/延时消息、事务消息
+
+    ro cketmq事务：
+        半消息：生产者发送的一种特殊消息，会保存在mqServer中，并标记为“暂不能投递”状态，但不会直接投递给消费者，消费者并不能消费这条消息
+
+        消息回查：MQServer发现消息长时间处于半消息状态，将向生产者发送请求，询问该消息的最终状态（提交或回滚）
+
+        具体过程：
+            1.生产者向MQServer发送半消息
+            2.MQServer告知生产者半消息发送成功
+            3.生产者执行本地事务
+            4.生产者发送二次确认，提交/回滚
+                如果发送成功：
+                    提交消息：MQServer投递消息，消费者提交事务
+                    回滚消息：MQServer丢弃消息
+                如果发送不成功：网络问题、服务正好重启等
+                    5.MQServer向生产者发送回查消息(MQServer发送2之后等待一段时间，未收到4)
+                    6.生产者检查本地事务状态
+                    7.根据6的结果，发送提交/回滚消息
+                        如果发送成功：
+                            提交消息：MQServer投递消息，消费者提交事务
+                            回滚消息：MQServer丢弃消息
+                        如果发送不成功：网络问题、服务正好重启等
+                            循环5、6、7步
+
+
+        消息三态：
+            Commit：提交事务消息，消费者可以消费此消息
+            Rollback：回滚事务消息，broker会删除该消息，消费者不能消费
+            UNKNOWN：broker需要回查确认该消息的状态
