@@ -13,6 +13,8 @@ import com.itczy.org.service.ContentService;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cloud.stream.messaging.Source;
+import org.springframework.messaging.support.MessageBuilder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 
@@ -115,11 +117,23 @@ public class ContentController {
         return "被限流或降级了 fallback";
     }
 
+    @Autowired
     private RestTemplate restTemplate;
 
     @GetMapping("/testRestTemplate")
     public TestDTO testRestTemplate(@PathVariable int userId){
         return restTemplate.getForObject("http://user-centent/getUser/{userId}",TestDTO.class, userId);
+    }
+
+    @Autowired
+    private Source source;
+
+    @GetMapping("test-stream")
+    public String testStream(){
+        source.output().send(
+                MessageBuilder.withPayload("消息体").build()
+        );
+        return "seccuss";
     }
 
 }

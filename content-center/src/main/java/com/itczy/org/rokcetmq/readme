@@ -51,3 +51,14 @@ rocketmq：
             Commit：提交事务消息，消费者可以消费此消息
             Rollback：回滚事务消息，broker会删除该消息，消费者不能消费
             UNKNOWN：broker需要回查确认该消息的状态
+
+Spring Cloud Stream:
+    Spring Cloud官方提供的一种简化消息通信的微服务组件
+
+    Destination Binder：目标绑定器
+        与消息中间件通信的组件
+
+    Destination Bindings：目标绑定
+        Binding是连接应用程序跟消息中间件的桥梁，用于消息的消费和生产，由binder创建
+
+    Message：消息

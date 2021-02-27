@@ -1,0 +1,11 @@
+Ribbon笔记：
+
+        ribbon：Netflix开源的客户端侧负载均衡器
+
+        整合ribbon：
+            1.加依赖
+                nacos-discovery中已经包含了
+            2.加注解
+                在RestTemplete上加 @LoadBalanced 注解
+            3.加配合
+                不用配置

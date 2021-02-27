@@ -28,6 +28,17 @@ spring:
         # 心跳发送周期，默认值null
         # 但在SimpleHttpHeartbeatSender会用默认值10秒
         #heartbeat-interval-ms: 10000
+    stream:
+      rocketmq:
+        binder:
+          name-server: 127.0.0.1:9876
+      bindings:
+        output:
+          # 用来指定topic
+          destination: stream-test-topic
+
+
+
   datasource:
     password: root2018
     username: root
@@ -57,4 +68,8 @@ feign:
 
 #rocketmq服务
 rocketmq:
-  name-server: 127.0.01:9876
+  name-server: 127.0.0.1:9876
+
+logging:
+  level:
+    com.alibaba.nacos: error

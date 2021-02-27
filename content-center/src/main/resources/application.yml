@@ -27,6 +27,16 @@ spring:
         # 心跳发送周期，默认值null
         # 但在SimpleHttpHeartbeatSender会用默认值10秒
         #heartbeat-interval-ms: 10000
+    stream:
+      rocketmq:
+        binder:
+          name-server: 127.0.0.1:9876
+      bindings:
+        output:
+          # 用来指定topic
+          destination: stream-test-topic
+
+
   datasource:
     password: root2018
     username: root
@@ -47,6 +57,12 @@ resttemplate:
 feign:
   sentinel:
     enabled: false
+  # 替代代码配置日志级别方式
+  client:
+    config:
+      # 指定具体某一个微服务的名称，如果使用default，就表示全局(所有微服务)都使用此配置
+      content-center:
+          loggerLevel: full
 
 #rocketmq服务
 rocketmq:
@@ -54,3 +70,8 @@ rocketmq:
   producer:
     #小坑，必须指定group
     group: test-group
+
+logging:
+  level:
+    com.itczy.org.feignClient.TestUserCenterFeignClient: debug
+    com.alibaba.nacos: error
