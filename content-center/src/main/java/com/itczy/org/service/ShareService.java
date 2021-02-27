@@ -7,4 +7,6 @@ public interface ShareService {
 
     Share auditById(Integer id, ShareAuditDTO shareAuditDTO);
 
+    void transactionLogByID(Integer id ,ShareAuditDTO shareAuditDTO, String transactionId);
+
 }
