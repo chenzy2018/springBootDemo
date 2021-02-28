@@ -23,7 +23,7 @@ import java.util.stream.Collectors;
  * 提高容灾，比如在北京和上海都部署了机器，让北京的优先调用北京机房的服务，上海优先调用上海机房的服务
  */
 @Slf4j
-public class NacosSameClusterRule extends AbstractLoadBalancerRule {
+public class TestNacosSameClusterRule extends AbstractLoadBalancerRule {
 
     @Autowired
     private NacosDiscoveryProperties nacosDiscoveryProperties;

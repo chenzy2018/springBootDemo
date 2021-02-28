@@ -1,6 +1,6 @@
 package configurations;
 
-import com.itczy.org.ribbonConfiguration.NacosSameClusterRule;
+import com.itczy.org.ribbonConfiguration.TestNacosSameClusterRule;
 import com.netflix.loadbalancer.IRule;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -16,9 +16,9 @@ public class RibbonsConfiguration {
     @Bean
     public IRule ribbonRule(){
         //返回负载均衡的规则
-        //return new NacosWeightRule();
+        //return new TestNacosWeightRule();
 
-        return new NacosSameClusterRule();
+        return new TestNacosSameClusterRule();
     }
 
 }

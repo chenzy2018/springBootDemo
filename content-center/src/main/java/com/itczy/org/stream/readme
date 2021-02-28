@@ -1,0 +1,21 @@
+Spring Cloud Stream:
+
+    整合stream：
+        1.加依赖
+            <dependency>
+                <groupId>com.alibaba.cloud</groupId>
+                <artifactId>spring-cloud-starter-stream-rocketmq</artifactId>
+            </dependency>
+        2.加注解
+            启动类加上 @EnableBinding(Source.class)
+        3.加配置
+            Spring:
+                cloud:
+                    stream:
+                          rocketmq:
+                            binder:
+                              name-server: 127.0.0.1:9876
+                          bindings:
+                            output:
+                              # 用来指定topic
+                              destination: stream-test-topic

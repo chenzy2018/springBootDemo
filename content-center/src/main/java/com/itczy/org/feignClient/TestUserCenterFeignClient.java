@@ -1,5 +1,6 @@
 package com.itczy.org.feignClient;
 
+import com.itczy.org.domain.dto.UserDTO;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -31,7 +32,7 @@ public interface TestUserCenterFeignClient {
      * @return
      */
     @GetMapping("/getUser/{userId}")
-    String query(@PathVariable(value = "userId") int userId);
+    UserDTO getUser(@PathVariable(value = "userId") int userId);
 
     @GetMapping("/addBonus")
     Boolean addBonus(@RequestParam(value = "userId") int userId, @RequestParam(value = "bonus") int bonus);

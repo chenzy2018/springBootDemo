@@ -1,9 +1,11 @@
 package com.itczy.org.controller;
 
+import com.itczy.org.domain.dto.UserDTO;
 import com.itczy.org.domain.entity.User;
 import com.itczy.org.service.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,8 +22,10 @@ public class UserController {
     private final UserService userService;
 
     @GetMapping("/getUser/{userId}")
-    public User getUser(@PathVariable int userId){
-        return userService.getUserByID(userId);
+    public UserDTO getUser(@PathVariable int userId){
+        UserDTO userDTO = new UserDTO();
+        BeanUtils.copyProperties(userService.getUserByID(userId), userDTO);
+        return userDTO;
     }
 
     @GetMapping("/addUser")

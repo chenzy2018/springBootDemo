@@ -2,7 +2,7 @@ package com.itczy.org.sentinel;
 
 import com.alibaba.csp.sentinel.slots.block.BlockException;
 
-public class FallBack {
+public class TestFallBack {
 
     /**
      * 必须是static

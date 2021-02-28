@@ -7,8 +7,9 @@ import com.alibaba.csp.sentinel.annotation.SentinelResource;
 import com.alibaba.csp.sentinel.context.ContextUtil;
 import com.alibaba.csp.sentinel.slots.block.BlockException;
 import com.itczy.org.domain.dto.TestDTO;
-import com.itczy.org.sentinel.Block;
-import com.itczy.org.sentinel.FallBack;
+import com.itczy.org.domain.dto.UserDTO;
+import com.itczy.org.sentinel.TestBlock;
+import com.itczy.org.sentinel.TestFallBack;
 import com.itczy.org.service.ContentService;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang.StringUtils;
@@ -27,7 +28,7 @@ public class ContentController {
     private ContentService contentService;
 
     @GetMapping("/getContent")
-    public TestDTO getContent(){
+    public UserDTO getContent(){
         log.info("这是个log");
         return contentService.getContent();
     }
@@ -85,9 +86,9 @@ public class ContentController {
     @GetMapping("/test-sentinel-resouce")
     @SentinelResource(value = "test-sentinel-api",
             blockHandler = "block",
-            blockHandlerClass =  Block.class,
+            blockHandlerClass =  TestBlock.class,
             fallback = "fallback",
-            fallbackClass = FallBack.class)
+            fallbackClass = TestFallBack.class)
     public String testSentinelResouce(@RequestParam(value = "str") String str){
 
         //SentinelResource不支持来源
@@ -125,7 +126,7 @@ public class ContentController {
         return restTemplate.getForObject("http://user-centent/getUser/{userId}",TestDTO.class, userId);
     }
 
-    @Autowired
+    @Autowired(required = false)
     private Source source;
 
     @GetMapping("test-stream")

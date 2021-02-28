@@ -1,0 +1,14 @@
+sentinel：
+
+    整合sentinel：
+        1.加依赖
+            <dependency>
+                <groupId>com.alibaba.cloud</groupId>
+                <artifactId>spring-cloud-starter-alibaba-sentinel</artifactId>
+            </dependency>
+        2.加注解
+            没有注解
+        3.加配置
+            没有配置
+
+    代码见：ContentController

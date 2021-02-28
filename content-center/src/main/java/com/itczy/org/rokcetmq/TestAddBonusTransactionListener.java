@@ -21,7 +21,7 @@ import org.springframework.messaging.MessageHeaders;
 @RocketMQTransactionListener(txProducerGroup = "tx-add-bonus-group")
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
 @Slf4j
-public class AddBonusTransactionListener implements RocketMQLocalTransactionListener {
+public class TestAddBonusTransactionListener implements RocketMQLocalTransactionListener {
 
     private final ShareService shareService;
 

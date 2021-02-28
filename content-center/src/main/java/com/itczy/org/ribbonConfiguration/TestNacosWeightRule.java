@@ -17,7 +17,7 @@ import org.springframework.beans.factory.annotation.Autowired;
  */
 
 @Slf4j
-public class NacosWeightRule extends AbstractLoadBalancerRule {
+public class TestNacosWeightRule extends AbstractLoadBalancerRule {
 
     @Autowired
     private NacosDiscoveryProperties nacosDiscoveryProperties;
