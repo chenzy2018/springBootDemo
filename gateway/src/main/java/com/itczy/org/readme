@@ -1,0 +1,48 @@
+Spring cloud Getaway：
+
+    Getway：是Spring Cloud的第二代网关，会取代第一代网关Zuul
+        基于Netty、Reactor(Reactive编程模型的一种实现)以及WebFlux(Reactive的web框架)构建
+        优点：性能强大(Zuul的1.6倍)，功能实用(转发、监控、限流)，易扩展
+        缺点：有学习成本(基于Netty、wenFlux)，不能在Sevlet容器下工作(tomact等，也不能构建成war包)，不支持Spring Boot 1.x(必须到2.0以上版本才可以)
+
+    搭建gateway：
+        新起一个spring boot工程，增加依赖(nacos、actuator等)，增加配置，如下：
+            server:
+              port: 8040
+
+            spring:
+              application:
+                name: gateway
+              cloud:
+                nacos:
+                  username: nacos
+                  password: nacos
+                  discovery:
+                    server-addr: 127.0.0.1:8848
+                gateway:
+                  discovery:
+                    locator:
+                      # 让gateway通过服务发现组件找到其他微服务
+                      enables: true
+
+            #actuator配置
+            management:
+              endpoints:
+                web:
+                  exposure:
+                    incode: '*'
+              endpoint:
+                health:
+                  show-details: always
+
+    gateway转发：
+        访问${gateway_URL}/{微服务名称}/**，就能够转发到对应微服务名称的/**路径
+
+    核心概念：
+        1.路由：
+            Spring Cloud Gateway的基础元素，可简单理解成一条转发的规则。
+                包含：ID、目标URL、Predicate集合以及Filter集合  
+        2.Predicate：谓词、断言
+            即java.util.function.Predicate(java中的断言)，Spring Cloud Gateway使用Predicate实现路由的匹配条件
+        3.Filter：过滤器
+            修改请求以及响应
