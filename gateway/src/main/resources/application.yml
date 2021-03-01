@@ -15,13 +15,19 @@ spring:
         locator:
           # 让gateway通过服务发现组件找到其他微服务
           enables: true
-
+      routes:
+        - id: between_route
+          uri: lb://user-cneter
+          predicates:
+            - TimeBetween=上午9:00,下午5:00
 #actuator配置
 management:
   endpoints:
     web:
       exposure:
-        incode: '*'
+        # *就是暴露所有的(注意需要加上单引号，直接写*会报错)，也可以指定具体的服务，比如写gateway
+        #include: '*'
+        include: gateway
   endpoint:
     health:
       show-details: always

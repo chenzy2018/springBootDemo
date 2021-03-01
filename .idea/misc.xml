@@ -8,6 +8,7 @@
       <list>
         <option value="$PROJECT_DIR$/user-center/pom.xml" />
         <option value="$PROJECT_DIR$/content-center/pom.xml" />
+        <option value="$PROJECT_DIR$/geteway/pom.xml" />
       </list>
     </option>
   </component>

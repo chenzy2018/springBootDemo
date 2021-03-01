@@ -8,11 +8,13 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="content-center" />
+        <module name="gateway" />
         <module name="user-center" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="content-center" target="1.8" />
+      <module name="gateway" target="1.8" />
       <module name="springdemo" target="1.5" />
       <module name="springparent" target="1.8" />
       <module name="user-center" target="1.8" />

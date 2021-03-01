@@ -41,8 +41,18 @@ Spring cloud Getaway：
     核心概念：
         1.路由：
             Spring Cloud Gateway的基础元素，可简单理解成一条转发的规则。
-                包含：ID、目标URL、Predicate集合以及Filter集合  
+                包含：ID、目标URL、Predicate集合以及Filter集合
         2.Predicate：谓词、断言
             即java.util.function.Predicate(java中的断言)，Spring Cloud Gateway使用Predicate实现路由的匹配条件
+            路由谓词工厂：用于定义路由条件
+                自定义谓词工厂，参考TimeBetweenRoutePredicateFactory.java
         3.Filter：过滤器
             修改请求以及响应
+            过滤器：
+                1.@Order(-1) ，数值越小，优先级越高
+                2.局部过滤器会按照顺序从0开始递增
+                3.配置了默认过滤器，默认和局部都是从1开始递增，然后按照顺序执行，两个1先执行，以此类推
+
+    限流：基于redis
+        漏铜算法：
+        令牌桶算法：
