@@ -1,5 +1,27 @@
 rocketmq：
 
+    整合rocketmq：
+        1.加依赖
+            此处版本是为了和rocketmq客户端4.5.1兼容，才使用了2.0.3，默认的版本是2.0.2
+            <dependency>
+                <groupId>org.apache.rocketmq</groupId>
+                <artifactId>rocketmq-spring-boot-starter</artifactId>
+                <version>2.0.3</version>
+            </dependency>
+        2.加注解
+            没有注解
+        3.加配置
+            生产者：group属性放在配置文件
+                rocketmq:
+                  name-server: 127.0.01:9876
+                  producer:
+                    #小坑，必须指定group
+                    group: test-group
+            消费者：group放在代码的注解里面(AddBonusListener.java)
+                #rocketmq服务
+                rocketmq:
+                  name-server: 127.0.0.1:9876
+
     术语：
         topic：一类消息的集合，rocketmq的基本订阅单位
         消息模型：
@@ -52,6 +74,9 @@ rocketmq：
             Rollback：回滚事务消息，broker会删除该消息，消费者不能消费
             UNKNOWN：broker需要回查确认该消息的状态
 
+    生产者发送消息，见shareServiceImpl.auditById()
+    消费者接收消息，见AddBonusListener.java
+
 Spring Cloud Stream:
     Spring Cloud官方提供的一种简化消息通信的微服务组件
 
@@ -62,3 +87,45 @@ Spring Cloud Stream:
         Binding是连接应用程序跟消息中间件的桥梁，用于消息的消费和生产，由binder创建
 
     Message：消息
+
+    整合stream：
+        1.加依赖
+            <dependency>
+                <groupId>com.alibaba.cloud</groupId>
+                <artifactId>spring-cloud-starter-stream-rocketmq</artifactId>
+            </dependency>
+        2.加注解
+            生产者启动类加上 @EnableBinding(Source.class)
+            消费者启动类加上 @EnableBinding(Sink.class)
+        3.加配置
+           生产者：用output
+               Spring:
+                    cloud:
+                        stream:
+                            rocketmq:
+                                binder:
+                                  name-server: 127.0.0.1:9876
+                            bindings:
+                                output:
+                                  # 用来指定topic
+                                  destination: stream-test-topic
+
+           消费者：用input
+               Spring:
+                   cloud:
+                       stream:
+                           rocketmq:
+                               binder:
+                                 name-server: 127.0.0.1:9876
+                           bindings:
+                               input:
+                                 # 用来指定topic
+                                 destination: stream-test-topic
+                                 # rockermq一定要设置，随便写即可，其他mq可以留空
+                                 group: binder-group
+
+    简单使用：
+        生产者发送消息：ContentController.testStream()
+        消费者消费消息：TestStreamConsumer.java
+
+    自定义接口：

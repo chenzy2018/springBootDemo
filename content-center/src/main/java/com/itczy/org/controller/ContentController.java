@@ -121,7 +121,7 @@ public class ContentController {
     @Autowired
     private RestTemplate restTemplate;
 
-    @GetMapping("/testRestTemplate")
+    @GetMapping("/testRestTemplate/{userId}")
     public TestDTO testRestTemplate(@PathVariable int userId){
         return restTemplate.getForObject("http://user-centent/getUser/{userId}",TestDTO.class, userId);
     }
@@ -131,6 +131,7 @@ public class ContentController {
 
     @GetMapping("test-stream")
     public String testStream(){
+        //直接发送消息，也可以指定超时时间的send
         source.output().send(
                 MessageBuilder.withPayload("消息体").build()
         );

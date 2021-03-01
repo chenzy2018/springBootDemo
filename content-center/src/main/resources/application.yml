@@ -32,9 +32,11 @@ spring:
         binder:
           name-server: 127.0.0.1:9876
       bindings:
-        output:
+        input:
           # 用来指定topic
           destination: stream-test-topic
+          # rockermq一定要设置，随便写即可，其他mq可以留空
+          group: binder-group
 
 
   datasource:
@@ -74,4 +76,5 @@ rocketmq:
 logging:
   level:
     com.itczy.org.feignClient.TestUserCenterFeignClient: debug
+    # 由于stream的一个架包会导致控制台一直打印nacos心跳的日志，因此可以通过设定nacos的日志级别来不打印
     com.alibaba.nacos: error

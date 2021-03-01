@@ -120,15 +120,15 @@ public class ShareServiceImpl implements ShareService {
         //testUserCenterFeignClient.addBonus(id, 500);
 
         //使用rocketmq发送消息，让消费者去消费，此种写法不支持分布式事务
-        rocketMQTemplate.convertAndSend(
+        /*rocketMQTemplate.convertAndSend(
                 "add-bonus",
                 UserAddBonusMagDTO.builder()
                 .userId(share.getUserId())
                 .bonus(500)
                 .build()
-        );
+        );*/
 
-        //事务支持方式
+        //rocketmq发送消息事务支持方式
         if(AuditStatusEnum.PASS.equals(shareAuditDTO.getAuditStatusEnum())){
             //发送半消息
             String headerValue = UUID.randomUUID().toString();
