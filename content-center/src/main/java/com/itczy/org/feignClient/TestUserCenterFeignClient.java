@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestParam;
  * name属性必须要加，缺少就会报错，指定调用的某个微服务的名称
  *
  * configuration = UserCenterFeignConfiguration.class：用于定义feignClient的配置类
+ * 或者使用添加配置的方式指定配置类
  *
  * fallback用于处理远程调用异常情况(限流之类的)，出现异常就会执行类中方法，不能拿到异常
  * fallbackFactory用于处理远程调用异常情况(限流之类的)，出现异常就会执行类中方法，可以拿到异常

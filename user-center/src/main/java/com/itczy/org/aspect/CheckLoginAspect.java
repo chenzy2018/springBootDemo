@@ -23,9 +23,11 @@ public class CheckLoginAspect {
     @Around("@annotation(com.itczy.org.aspect.CheckLogin)")
     public Object CheckLogin(ProceedingJoinPoint point){
         //1.从header里面获取token
+        //静态获取request的方式，重要
         RequestAttributes requestAttributes = RequestContextHolder.getRequestAttributes();
         ServletRequestAttributes servletRequestAttributes = (ServletRequestAttributes) requestAttributes;
         HttpServletRequest request = servletRequestAttributes.getRequest();
+
         String token = request.getHeader("x-Token");//假设是x-Token
         //2.校验token是否合法，如果合法放行，如果不合法则报错
         if(token == null){

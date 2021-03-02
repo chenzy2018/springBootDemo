@@ -65,6 +65,8 @@ feign:
       # 指定具体某一个微服务的名称，如果使用default，就表示全局(所有微服务)都使用此配置
       content-center:
           loggerLevel: full
+          requestInterceptors:
+            - com.itczy.org.feignClient.TokenRelayRequestInterceptor
 
 #rocketmq服务
 rocketmq:
