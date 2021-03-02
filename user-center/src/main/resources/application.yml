@@ -44,6 +44,16 @@ spring:
     username: root
     url: jdbc:mysql://localhost:3306/user-center?useUnicode=true&characterEncoding=utf-8&useSSL=true&serverTimezone=UTC
     driver-class-name: com.mysql.cj.jdbc.Driver
+  zipkin:
+    base-url: http://127.0.0.1:9411
+    #解决nacos把http://127.0.0.1:9411当做服务，而一直刷新本地缓存但是找不到而报错的问题
+    #这是discoveryClientEnabled是zipkin底层代码中指定的参数，SR3版本会解决，到时候可以直接使用discovery.clintnt.enabled : false
+    discoveryClientEnabled: false
+
+  sleuth:
+    sampler:
+      # 抽样率，默认是0.1(百分之90会被丢弃，为了减少对应用性能的影响)，此处便于测试才设置成了1.0(百分之百)
+      probability: 1.0
 
 #配置某服务的负载均衡的规则
 #user-center:
@@ -73,3 +83,8 @@ rocketmq:
 logging:
   level:
     com.alibaba.nacos: error
+
+mybatis:
+  configuration:
+    # 开启mybatis将数据下划线命名映射成对应驼峰命名的字段
+    map-underscore-to-camel-case: true

@@ -9,6 +9,7 @@
         <option value="$PROJECT_DIR$/user-center/pom.xml" />
         <option value="$PROJECT_DIR$/content-center/pom.xml" />
         <option value="$PROJECT_DIR$/geteway/pom.xml" />
+        <option value="$PROJECT_DIR$/gateway/pom.xml" />
       </list>
     </option>
   </component>

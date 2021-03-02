@@ -69,6 +69,11 @@
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-sleuth</artifactId>
         </dependency>
+        <!-- 整合zipkin 有了zipkin之后，可以去掉sleuth的依赖，因为zipkin的依赖已经包含了sleuth的依赖 -->
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-zipkin</artifactId>
+        </dependency>
         <!-- 整合actuator -->
         <dependency>
             <groupId>org.springframework.boot</groupId>

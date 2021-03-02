@@ -74,6 +74,11 @@
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-sleuth</artifactId>
         </dependency>
+        <!-- 整合zipkin -->
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-zipkin</artifactId>
+        </dependency>
         <!-- 非spring官方提供的包 一般格式为：xxx-spring-boot-starter -->
         <!-- 整合mybatis -->
         <dependency>

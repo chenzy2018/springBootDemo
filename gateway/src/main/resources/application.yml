@@ -28,6 +28,15 @@ spring:
           uri: lb://user-cneter
           predicates:
             - TimeBetween=上午9:00,下午5:00
+  zipkin:
+    base-url: http://127.0.0.1:9411
+    #解决nacos把http://127.0.0.1:9411当做服务，而一直刷新本地缓存但是找不到而报错的问题
+    #这是discoveryClientEnabled是zipkin底层代码中指定的参数，SR3版本会解决，到时候可以直接使用discovery.clintnt.enabled : false
+    discoveryClientEnabled: false
+  sleuth:
+    sampler:
+      # 抽样率，默认是0.1(百分之90会被丢弃，为了减少对应用性能的影响)，此处便于测试才设置成了1.0(百分之百)
+      probability: 1.0
 #actuator配置
 management:
   endpoints:
@@ -39,3 +48,8 @@ management:
   endpoint:
     health:
       show-details: always
+
+mybatis:
+  configuration:
+    # 开启mybatis将数据下划线命名映射成对应驼峰命名的字段
+    map-underscore-to-camel-case: true
