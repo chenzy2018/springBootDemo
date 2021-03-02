@@ -4,6 +4,7 @@ import com.itczy.org.domain.dto.UserDTO;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestParam;
 
 /**
@@ -28,11 +29,13 @@ public interface TestUserCenterFeignClient {
     /**
      * 该方法被调用，就会构造以下链接去请求
      * http://user-center/getUser/{userId}
-     * @param userId
-     * @return
+     *
+     * 此处@RequestHeader("X-Token")表示feign在构建请求的时候会在header里加一个token
+     * 这种方案非常有局限性，因为会修改接口定义，在远程调用多的时候，就会引起大量修改
+     * 存在类似公共需求，建议采用RequestInterceptor的方式支持
      */
     @GetMapping("/getUser/{userId}")
-    UserDTO getUser(@PathVariable(value = "userId") int userId);
+    UserDTO getUser(@PathVariable(value = "userId") int userId, @RequestHeader("X-Token") String token);
 
     @GetMapping("/addBonus")
     Boolean addBonus(@RequestParam(value = "userId") int userId, @RequestParam(value = "bonus") int bonus);

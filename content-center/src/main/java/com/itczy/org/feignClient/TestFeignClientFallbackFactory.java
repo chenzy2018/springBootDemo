@@ -1,5 +1,6 @@
 package com.itczy.org.feignClient;
 
+import com.itczy.org.domain.dto.UserDTO;
 import feign.hystrix.FallbackFactory;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
@@ -15,10 +16,11 @@ public class TestFeignClientFallbackFactory implements FallbackFactory<TestUserC
     @Override
     public TestUserCenterFeignClient create(Throwable throwable) {
         return new TestUserCenterFeignClient(){
+
             @Override
-            public String query(int userId) {
+            public UserDTO getUser(int userId, String token) {
                 log.warn("异常：", throwable);
-                return "进入TestFeignClientFallbackFactory";
+                return null;
             }
 
             @Override

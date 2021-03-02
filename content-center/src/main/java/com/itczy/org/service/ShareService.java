@@ -6,7 +6,7 @@ import com.itczy.org.domain.entity.Share;
 
 public interface ShareService {
 
-    ShareDTO findById(Integer id);
+    ShareDTO findById(Integer id, String tokne);
 
     Share auditById(Integer id, ShareAuditDTO shareAuditDTO);
 

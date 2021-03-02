@@ -46,7 +46,7 @@ public class ShareServiceImpl implements ShareService {
     private final RocketmqTransactionLogMapper rocketmqTransactionLogMapper;
 
     @Override
-    public ShareDTO findById(Integer id){
+    public ShareDTO findById(Integer id, String tokne){
         Share share = shareMapper.selectByPrimaryKey(id);
 
         Integer userId = share.getUserId();
@@ -88,7 +88,7 @@ public class ShareServiceImpl implements ShareService {
         );*/
 
         //使用feign实现远程调用
-        UserDTO userDTO = testUserCenterFeignClient.getUser(userId);
+        UserDTO userDTO = testUserCenterFeignClient.getUser(userId, tokne);
 
         //装配属性
         ShareDTO shareDTO = new ShareDTO();

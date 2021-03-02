@@ -1,12 +1,15 @@
 package com.itczy.org.feignClient;
 
+import com.itczy.org.domain.dto.UserDTO;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 public class TestFeignClientFallback implements TestUserCenterFeignClient{
+
     @Override
-    public String query(int userId) {
-        return "进入TestFeignClientFallback";
+    public UserDTO getUser(int userId, String token) {
+
+        return null;
     }
 
     @Override

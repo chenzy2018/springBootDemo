@@ -1,0 +1,55 @@
+认证、授权
+
+    有状态、无状态
+        有状态：需要存储状态
+            早期，部署多个tomcat实例，通过nginx进行负载均衡调用，会存在一个Session Store，用于多个tomcat共享回话，方便拿用户的登录信息等
+                也可以是用 粘性会话(对相同ip的请求，nginx总会转发到同一个tomcat实例上)
+            两种方案都不适合微服务
+            优缺点和 无状态 的正好相反
+
+        无状态：不需要存储用户状态
+            服务器不存储用户状态，而是在用户登录的时候，服务器颁发一个token给用户，然后该用户请求都会带上tokne(可能在header里、url里等)
+            服务器拿到token，就解析token，判断是否合法、是否过期等，如果都没问题，就视为用户登录了，否则就视为未登录
+            优点：去中心化，不需要Session Store这样的角色
+                无存储，简单
+                任意扩容、缩容
+            缺点：服务器端控制力弱，不易修改已颁发token的用户的状态(比如修改已颁发tokne的期时间等)
+
+            token中还可以存储一些不敏感的用户信息，服务器可以直接使用，方便代码编写
+
+    登录认证方案：
+        1."处处安全"方案：使用OAuth2.0方案，代表实现 Spring Cloud Security 、 jboss Keycloak
+            优点：安全性高  缺点：实现成本高
+        2."外部无状态、内部有状态"方案：适用于对老的项目改造，没法一步到位，会存在微服务和老架构共存的情况，此方案可以不用考虑
+            请求带上JSESSIONID和Token，微服务用Token，老架构用JSESSIONID
+        3."网关认证授权，内部裸奔"方案：
+            请求到达网关，网关颁发Token，后续请求带上Token，网关解析Token进行认证，并将用户信息带到转发请求中，微服务直接拿到用户信息进行逻辑处理
+            认证授权都是网关完成登录认证，具体微服务都是无条件信任网关
+            优点：实现简单、性能高效
+            缺点：一旦网关被攻破，就问你尴尬不尴尬
+        4."内部裸奔"改进方案
+            请求到达网关，转发到认证授权中心，由认证授权中心进行认证、授权、颁发Token等行为，后续请求都带上Token，网关转发到微服务后，微服务对Token
+                进行解析，判断是否合法、是否过期等，微服务之间调用也要带上Token
+
+            优点：降低网关复杂度，增加了一定的安全性
+            缺点：秘钥的泄露可能性较高(微服务越多，直到秘钥的人就越多，也就越容易泄露)
+                   --不过可以解决(使用定期更换秘钥，去专门地方解析Token或者尽可能不让开发看到秘钥本身等方案)
+
+    访问控制模型：满足什么条件才允许访问，即授权，(可以使用jboss Keycloak控制台熟悉)
+        1.ACL(Access Control List)
+        2.RBAC(Role-based access control) 最流行
+            为用户分配角色，为角色分配权限
+        3.ABAC(Attibute-based access control)
+        4.Rule-based access control
+        5.Time-based access control
+
+    JWT：全称Json web token，是一个开放标准，用来在各方之间安全的传输信息，他是数字签名的，可被验证和信任
+
+        组成：
+            Header：头，记录令牌类型、签名算法等  例如：{"alg":"HS256","type":"JWT"}
+            Payload：有效载荷，携带一些用户信息  例如：{"userId":"1","username":"czy"}  注意：只能放不敏感信息，例如身份证号、手机号等不允许放
+            Signature：签名，防止Token被篡改，确保安全性  基于Header、Payload计算出来的一个字符串
+
+            Token=Base64(Header).Base64(Payload).Base64(Signature)  -> aaaa.bbbb.cccc  这就是一个JWT
+
+            Signature = HS256("aaaa.bbbb",秘钥) HS256是Header指定的签名算法，aaaa.bbbb是Base64(Header).Base64(Payload)的加密结果的一种举例
