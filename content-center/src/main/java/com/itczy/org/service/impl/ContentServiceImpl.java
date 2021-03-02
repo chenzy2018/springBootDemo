@@ -16,10 +16,10 @@ public class ContentServiceImpl implements ContentService {
     private final TestUserCenterFeignClient feignClient;
 
     @Override
-    public UserDTO getContent() {
-       UserDTO userDTO = feignClient.getUser(1);
+    public UserDTO getContent(String token) {
+       UserDTO userDTO = feignClient.getUser(1, token);
 
-        return userDTO;
+       return userDTO;
     }
 
 }

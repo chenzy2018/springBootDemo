@@ -1,0 +1,12 @@
+# bootstrap是nacos处理上下文的专用配置文件，集成nacos配置中心所需要的
+spring:
+  cloud:
+    nacos:
+      # nacos配置中心配置
+      config:
+        server-addr: 127.0.0.1:8848
+        file-extension: yaml
+  application:
+    name: content-center
+  profiles:
+    active: dev

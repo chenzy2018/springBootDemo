@@ -5,5 +5,5 @@ import com.itczy.org.domain.dto.UserDTO;
 
 public interface ContentService {
 
-    UserDTO getContent();
+    UserDTO getContent(String token);
 }

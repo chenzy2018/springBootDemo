@@ -31,9 +31,9 @@ public class ContentController {
     private ContentService contentService;
 
     @GetMapping("/getContent")
-    public UserDTO getContent(){
+    public UserDTO getContent(@RequestHeader("X-Token") String token){
         log.info("这是个log");
-        return contentService.getContent();
+        return contentService.getContent(token);
     }
 
     /**
