@@ -15,9 +15,12 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.stream.messaging.Source;
+import org.springframework.http.*;
 import org.springframework.messaging.support.MessageBuilder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
+
+import javax.servlet.http.HttpServletRequest;
 
 @RestController
 @RequestMapping("/content")
@@ -124,6 +127,28 @@ public class ContentController {
     @GetMapping("/testRestTemplate/{userId}")
     public TestDTO testRestTemplate(@PathVariable int userId){
         return restTemplate.getForObject("http://user-centent/getUser/{userId}",TestDTO.class, userId);
+    }
+
+    /**
+     * 使用exchange方法支持Token传递
+     * 会面对大量修改代码的问题
+     * 对于所有restTemplate都共用的修改，使用ClientHttpRequestInterceptor方式做全局处理比较好
+     */
+    @GetMapping("/testTokenRelay/{userId}")
+    public ResponseEntity<TestDTO> testTokenRelay(@PathVariable int userId, HttpServletRequest httpRequest){
+
+        //可以在方法上注入HttpServletRequest的方式，也可以是用静态方式获取Token
+        HttpHeaders httpHeaders = new HttpHeaders();
+        httpHeaders.add("X-Token",httpRequest.getHeader("X-Token"));
+
+        return
+                restTemplate.exchange(
+                    "http://user-centent/getUser/{userId}",
+                    HttpMethod.GET,
+                    new HttpEntity<>(httpHeaders),
+                    TestDTO.class,
+                    userId
+                );
     }
 
     @Autowired(required = false)
