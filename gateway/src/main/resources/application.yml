@@ -16,6 +16,14 @@ spring:
           # 让gateway通过服务发现组件找到其他微服务
           enables: true
       routes:
+        - id: user_route
+          uri: lb://user-cneter
+          predicates:
+            - Path=/user/**
+        - id: content_route
+          uri: lb://content-cneter
+          predicates:
+          - Path=/share/**,admin/shares/**
         - id: between_route
           uri: lb://user-cneter
           predicates:

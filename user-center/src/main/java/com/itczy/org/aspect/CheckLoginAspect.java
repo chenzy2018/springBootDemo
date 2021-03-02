@@ -1,5 +1,6 @@
 package com.itczy.org.aspect;
 
+import com.itczy.org.exception.SecurityException;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
