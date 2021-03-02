@@ -11,6 +11,7 @@ import com.itczy.org.domain.dto.UserDTO;
 import com.itczy.org.sentinel.TestBlock;
 import com.itczy.org.sentinel.TestFallBack;
 import com.itczy.org.service.ContentService;
+import lombok.Synchronized;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
