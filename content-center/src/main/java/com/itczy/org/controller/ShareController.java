@@ -4,6 +4,7 @@ import com.itczy.org.domain.dto.ShareDTO;
 import com.itczy.org.service.ShareService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -22,5 +23,13 @@ public class ShareController {
     @GetMapping("/findById/{id}")
     public ShareDTO findById(@PathVariable Integer id, @RequestHeader("X-token") String token){
         return shareService.findById(id, token);
+    }
+
+    @Value("${your.configration}")
+    private String yourConfigration;
+
+    @GetMapping("/test-config")
+    public String TestConfigration(){
+        return yourConfigration;
     }
 }
