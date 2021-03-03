@@ -56,7 +56,7 @@ public class ContentController {
             //SphO.entry(resourceName);
             //SphU sentinel核心API，用于定义一个资源，让资源收到监控，保护资源
             entry = SphU.entry(resourceName);
-            //被保护的业务逻辑
+            //被保护的业务逻辑，resourceName代指以下这段代码
             if(StringUtils.isBlank(str)) throw new IllegalArgumentException("str不能为空");
             return str;
         }
@@ -82,6 +82,7 @@ public class ContentController {
 
     /**
      * sentinel核心API优雅的使用方式，底层使用还是上面那种方式
+     * value = "test-sentinel-api"：用于指定资源名称，test-sentinel-api就代指这个方法
      * blockHandler用于指定处理BlockException的函数
      * blockHandlerClass用于指定处理BlockException的类，提高代码重用率，简化当前类
      * fallback用于具体返回是限流了还是降级了
