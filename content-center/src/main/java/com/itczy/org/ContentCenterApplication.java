@@ -11,6 +11,7 @@ import org.springframework.cloud.stream.annotation.EnableBinding;
 import org.springframework.cloud.stream.messaging.Source;
 import org.springframework.context.annotation.Bean;
 import org.springframework.web.client.RestTemplate;
+import springfox.documentation.swagger2.annotations.EnableSwagger2;
 import tk.mybatis.spring.annotation.MapperScan;
 
 import java.util.Collections;
@@ -20,6 +21,7 @@ import java.util.Collections;
 @EnableFeignClients
 @MapperScan(basePackages = "com.itczy.org.dao")
 @EnableBinding(Source.class)
+@EnableSwagger2
 public class ContentCenterApplication {
 
     public static void main(String[] args) {
