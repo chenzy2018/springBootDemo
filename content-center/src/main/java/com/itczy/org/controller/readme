@@ -53,3 +53,18 @@
             Token=Base64(Header).Base64(Payload).Base64(Signature)  -> aaaa.bbbb.cccc  这就是一个JWT
 
             Signature = HS256("aaaa.bbbb",秘钥) HS256是Header指定的签名算法，aaaa.bbbb是Base64(Header).Base64(Payload)的加密结果的一种举例
+
+        过期时间：
+            可以在生成的时候设置过期时间
+
+            问题：过期了，反复登录
+                每次访问时候续时间(避免重复生成)
+
+    签名：
+        1.将参数A(参数中加上时间戳)进行字典排序得到B
+        2.B+密钥（服务端）得到C
+        3.将C 使用sha1 加密得到D
+            不能逆向，也就不存在D->C的途径，也可以使用md5等加密方式，但是sha1更好
+        4.服务端拿到D，然后按照1、2、3的方式得到D1，对比D和D1，一致就通过
+
+        这样 密钥不会在网络传输
